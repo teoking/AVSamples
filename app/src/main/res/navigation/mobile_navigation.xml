@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.teoking.avsamples.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
+            app:destination="@id/nav_home_second" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_home_second"
+        android:name="com.teoking.avsamples.ui.home.HomeSecondFragment"
+        android:label="@string/home_second"
+        tools:layout="@layout/fragment_home_second">
+        <action
+            android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
+            app:destination="@id/nav_home" />
+
+        <argument
+            android:name="myArg"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="com.teoking.avsamples.ui.gallery.GalleryFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/fragment_gallery" />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.teoking.avsamples.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_audio_record_play"
+        android:name="com.teoking.avsamples.ui.recordplay.AudioRecordPlayFragment"
+        android:label="@string/menu_audio_record_play"
+        tools:layout="@layout/fragment_audio_record_play" />
+
+    <fragment
+        android:id="@+id/nav_extractor_muxer"
+        android:name="com.teoking.avsamples.ui.extractor_muxer.Mp4ExtractorMuxerFragment"
+        android:label="@string/menu_extractor_muxer"
+        tools:layout="@layout/fragment_extractor_muxer" />
+
+    <fragment
+        android:id="@+id/nav_media_codec"
+        android:name="com.teoking.avsamples.ui.codec.AudioCodecFragment"
+        android:label="@string/menu_media_codec"
+        tools:layout="@layout/fragment_media_code_sample" />
+</navigation>

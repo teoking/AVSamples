@@ -1,0 +1,4 @@
+rootProject.name='AVSamples'
+include ':app'
+include ':imagedrawer'
+include ':common'
