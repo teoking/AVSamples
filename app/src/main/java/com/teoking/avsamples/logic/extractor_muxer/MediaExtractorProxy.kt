@@ -8,16 +8,20 @@ import android.media.MediaFormat
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import java.io.FileDescriptor
 import java.nio.ByteBuffer
 import java.util.*
 
-class MediaExtractorProxy(mediaFileDescriptor: AssetFileDescriptor) {
+class MediaExtractorProxy() {
 
     private val mExtractor: MediaExtractor = MediaExtractor()
     private var mAudioTrackIndex = -1
     private var mVideoTrackIndex = -1
 
-    init {
+    private var mAudioFormat: MediaFormat? = null
+    private var mVideoFormat: MediaFormat? = null
+
+    constructor(mediaFileDescriptor: AssetFileDescriptor) : this() {
         mExtractor.setDataSource(mediaFileDescriptor)
         for (i in 0 until getTrackCount()) {
             val format = getTrackFormat(i)
@@ -26,6 +30,21 @@ class MediaExtractorProxy(mediaFileDescriptor: AssetFileDescriptor) {
                 mAudioTrackIndex = i
             } else if (mime.startsWith("video")) {
                 mVideoTrackIndex = i
+            }
+        }
+    }
+
+    constructor(path: String) : this() {
+        mExtractor.setDataSource(path)
+        for (i in 0 until getTrackCount()) {
+            val format = getTrackFormat(i)
+            val mime = format.getString(MediaFormat.KEY_MIME) ?: ""
+            if (mime.startsWith("audio")) {
+                mAudioTrackIndex = i
+                mAudioFormat = format
+            } else if (mime.startsWith("video")) {
+                mVideoTrackIndex = i
+                mVideoFormat = format
             }
         }
     }
@@ -72,6 +91,14 @@ class MediaExtractorProxy(mediaFileDescriptor: AssetFileDescriptor) {
         return mExtractor.sampleTrackIndex
     }
 
+    fun getAudioFormat(): MediaFormat? {
+        return mAudioFormat
+    }
+
+    fun getVideoFormat(): MediaFormat? {
+        return mVideoFormat
+    }
+
     fun release() {
         mExtractor.release()
     }
@@ -80,8 +107,8 @@ class MediaExtractorProxy(mediaFileDescriptor: AssetFileDescriptor) {
         return mExtractor.readSampleData(byteBuffer, offset)
     }
 
-    private fun advance() {
-        mExtractor.advance()
+    private fun advance(): Boolean {
+        return mExtractor.advance()
     }
 
     private fun selectTracks(index: Int) {
@@ -118,12 +145,21 @@ class MediaExtractorProxy(mediaFileDescriptor: AssetFileDescriptor) {
         selectTracks(trackIndex)
         val size = readSampleData(byteBuffer, 0)
         val isAudioTrack = isAudioTrack(getSampleTrackIndex())
-        Log.d("tedted", "isAudioTrack=$isAudioTrack, size=$size")
         bufferInfo.flags = getSampleFlags()
         bufferInfo.offset = 0
         bufferInfo.size = size
         bufferInfo.presentationTimeUs = getSampleTime()
         advance()
         return Pair(size, isAudioTrack)
+    }
+
+    /**
+     * Return a pair, first is current sample size, second means next sample availability.
+     */
+    fun getInputBuffer(trackIndex: Int, byteBuffer: ByteBuffer): Pair<Int, Boolean> {
+        selectTracks(trackIndex)
+        val size = readSampleData(byteBuffer, 0)
+        val exhausted = !advance()
+        return Pair(size, exhausted)
     }
 }

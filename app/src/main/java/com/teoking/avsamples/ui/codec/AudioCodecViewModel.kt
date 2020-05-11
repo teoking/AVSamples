@@ -9,6 +9,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.teoking.avsamples.logic.extractor_muxer.MediaExtractorProxy
 import com.teoking.avsamples.logic.extractor_muxer.MediaMuxerProxy
 import com.teoking.avsamples.util.playWithMedia2Player
 import com.teoking.common.AudioRecordHelper
@@ -42,7 +43,7 @@ class AudioCodecViewModel(application: Application) : AndroidViewModel(applicati
 
         isRecoding = true
 
-        GlobalScope.launch(Dispatchers.Main) {
+        viewModelScope.launch {
             // Start recording audio
             startRecord()
 
@@ -194,7 +195,93 @@ class AudioCodecViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun decodeAacAndPlayWithAudioTrack() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val extractor = MediaExtractorProxy(outputAvcFilePath)
+            val format = extractor.getAudioFormat()
+            if (VERBOSE) Log.d(TAG, "[decode and play aac] audio format: $format")
 
+            if (format == null) {
+                return@launch
+            }
+
+            val sampleRate = format.getInteger(MediaFormat.KEY_SAMPLE_RATE)
+            val mime = format.getString(MediaFormat.KEY_MIME)
+            val channelCount = format.getInteger(MediaFormat.KEY_CHANNEL_COUNT)
+            // Only one track in the case
+            val trackIndex = 0
+            // If sample has bean read out!
+            var sampleExhausted = false
+
+            val decoder = MediaCodec.createDecoderByType(mime)
+
+            decoder.setCallback(object : MediaCodec.Callback() {
+
+                override fun onInputBufferAvailable(codec: MediaCodec, index: Int) {
+                    if (sampleExhausted) {
+                        return
+                    }
+
+                    val inputBuffer = codec.getInputBuffer(index)!!
+                    val result = extractor.getInputBuffer(trackIndex, inputBuffer)
+                    sampleExhausted = result.second
+                    val size = result.first
+                    val flags = extractor.getSampleFlags()
+
+                    val presentationTime = extractor.getSampleTime()
+
+                    if (VERBOSE) Log.d(TAG, "[audio decoder] Before queue: size=$size, flags=$flags, " +
+                            "exhausted=$sampleExhausted, pt=$presentationTime")
+
+                    if (size >= 0) {
+                        codec.queueInputBuffer(index, 0, size, presentationTime, flags)
+                    }
+
+                    if (sampleExhausted) {
+                        if (VERBOSE) Log.d(TAG, "[audio decoder] EOS")
+
+                        handleEndOfStream(decoder, index)
+
+                        // Free extractor
+                        extractor.release()
+                    }
+                }
+
+                override fun onOutputBufferAvailable(
+                    codec: MediaCodec,
+                    index: Int,
+                    info: MediaCodec.BufferInfo
+                ) {
+                    val byteBuffer = codec.getOutputBuffer(index)
+                    if (VERBOSE) {
+                        Log.d(TAG, "[audio decoder] output buffer $byteBuffer")
+                    }
+
+                    if ((info.flags and MediaCodec.BUFFER_FLAG_CODEC_CONFIG) != 0) {
+                        if (VERBOSE) Log.d(TAG, "audio decoder: codec config buffer");
+
+                        codec.releaseOutputBuffer(index, false)
+                        return
+                    }
+
+                    codec.releaseOutputBuffer(index, false)
+                }
+
+                override fun onOutputFormatChanged(codec: MediaCodec, format: MediaFormat) {
+                    if (VERBOSE) {
+                        Log.d(TAG, "[audio decoder] format change: ${codec.outputFormat}")
+                    }
+                }
+
+                override fun onError(codec: MediaCodec, e: MediaCodec.CodecException) {
+                    if (VERBOSE) {
+                        Log.d(TAG, "[audio decoder] onError", e)
+                    }
+                }
+            })
+
+            decoder.configure(format, null, null, 0)
+            decoder.start()
+        }
     }
 
     companion object {
