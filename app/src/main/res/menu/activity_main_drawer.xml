@@ -31,5 +31,10 @@
             android:id="@+id/nav_media_codec"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_media_codec" />
+
+        <item
+            android:id="@+id/nav_camera_preview"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_camera_preview" />
     </group>
 </menu>
