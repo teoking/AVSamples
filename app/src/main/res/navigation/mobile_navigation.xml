@@ -70,4 +70,22 @@
         android:name="com.teoking.avsamples.ui.graphic.gl2.Gles2ShapesFragment"
         android:label="@string/menu_graphic_gles2_shape"
         tools:layout="@layout/fragment_gles2_shapes" />
+
+    <fragment
+        android:id="@+id/nav_image_image_view"
+        android:name="com.teoking.avsamples.ui.image.imageview.ImageViewDrawFragment"
+        android:label="@string/menu_image_image_view"
+        tools:layout="@layout/fragment_image_view" />
+
+    <fragment
+        android:id="@+id/nav_image_surface_view"
+        android:name="com.teoking.avsamples.ui.image.surfaceview.SurfaceDrawFragment"
+        android:label="@string/menu_image_surface_view"
+        tools:layout="@layout/fragment_surface_view" />
+
+    <fragment
+        android:id="@+id/nav_image_custom_view"
+        android:name="com.teoking.avsamples.ui.image.custom.CustomViewDrawFragment"
+        android:label="@string/menu_image_custom_view"
+        tools:layout="@layout/fragment_custom_view" />
 </navigation>
