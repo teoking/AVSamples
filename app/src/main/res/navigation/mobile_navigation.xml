@@ -64,4 +64,10 @@
         android:name="com.teoking.avsamples.ui.camera.preivew.CameraXPreviewFragment"
         android:label="@string/menu_camera_preview"
         tools:layout="@layout/fragment_camera_x_preview" />
+
+    <fragment
+        android:id="@+id/nav_graphic_gles2_shape"
+        android:name="com.teoking.avsamples.ui.graphic.gl2.Gles2ShapesFragment"
+        android:label="@string/menu_graphic_gles2_shape"
+        tools:layout="@layout/fragment_gles2_shapes" />
 </navigation>
