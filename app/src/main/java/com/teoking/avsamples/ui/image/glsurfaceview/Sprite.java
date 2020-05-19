@@ -60,16 +60,24 @@ public class Sprite {
 
     // number of coordinates per vertex in this array
     static final int COORDS_PER_VERTEX = 2;
-    static float spriteCoords[] = {-0.5f, 0.5f,   // top left
+    static float spriteCoords[] = {
+            /*-0.5f, 0.5f,   // top left
             -0.5f, -0.5f,   // bottom left
             0.5f, -0.5f,   // bottom right
-            0.5f, 0.5f}; //top right
+            0.5f, 0.5f*/   //top right
+
+            -1.0f, 1.0f,   // top left
+            -1.0f, -1.0f,   // bottom left
+            1.0f, -1.0f,   // bottom right
+            1.0f, 1.0f   //top right
+    };
 
     private short drawOrder[] = {0, 1, 2, 0, 2, 3}; //Order to draw vertices
     private final int vertexStride = COORDS_PER_VERTEX * 4; //Bytes per vertex
 
     // Set color with red, green, blue and alpha (opacity) values
-    float color[] = {0.63671875f, 0.76953125f, 0.22265625f, 1.0f};
+//    float color[] = {0.63671875f, 0.76953125f, 0.22265625f, 1.0f};
+    float color[] = {1.0f, 1.0f, 1.0f, 1.0f};
 
     public Sprite(final Context activityContext) {
         mActivityContext = activityContext;
@@ -132,7 +140,7 @@ public class Sprite {
         mTextureDataHandle = loadTexture(mActivityContext, R.drawable.james);
     }
 
-    public void Draw(float[] mvpMatrix) {
+    public void draw(float[] mvpMatrix) {
         //Add program to OpenGL ES Environment
         GLES20.glUseProgram(shaderProgram);
 

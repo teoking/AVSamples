@@ -32,7 +32,6 @@ public class MyGL20Renderer implements GLSurfaceView.Renderer {
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         //Initialize Shapes
-        //triangle = new Triangle();
         sprite = new Sprite(mActivityContext);
     }
 
@@ -41,6 +40,7 @@ public class MyGL20Renderer implements GLSurfaceView.Renderer {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
         //Set the camera position (View Matrix)
+//        Matrix.setLookAtM(mVMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
         Matrix.setLookAtM(mVMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 
         //Calculate the projection and view transformation
@@ -53,8 +53,7 @@ public class MyGL20Renderer implements GLSurfaceView.Renderer {
         Matrix.multiplyMM(mMVPMatrix, 0, mRotationMatrix, 0, mMVPMatrix, 0);
 
         //Draw Shape
-        //triangle.Draw(mMVPMatrix);
-        sprite.Draw(mMVPMatrix);
+        sprite.draw(mMVPMatrix);
     }
 
     public void onSurfaceChanged(GL10 unused, int width, int height) {
