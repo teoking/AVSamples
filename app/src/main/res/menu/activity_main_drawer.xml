@@ -31,7 +31,7 @@
 
         <item
             android:id="@+id/nav_image_image_view"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_image_image_view" />
         <item
             android:id="@+id/nav_image_surface_view"
@@ -39,7 +39,12 @@
             android:title="@string/menu_image_surface_view" />
         <item
             android:id="@+id/nav_image_custom_view"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_image_custom_view" />
+
+        <item
+            android:id="@+id/nav_image_glsurface_view"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/menu_image_glsurface_view" />
     </group>
 </menu>

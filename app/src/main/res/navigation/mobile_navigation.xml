@@ -88,4 +88,11 @@
         android:name="com.teoking.avsamples.ui.image.custom.CustomViewDrawFragment"
         android:label="@string/menu_image_custom_view"
         tools:layout="@layout/fragment_custom_view" />
+
+    <fragment
+        android:id="@+id/nav_image_glsurface_view"
+        android:name="com.teoking.avsamples.ui.image.glsurfaceview.GLSurfaceViewDrawFragment"
+        android:label="@string/menu_image_glsurface_view"
+        tools:layout="@layout/fragment_gl_surface_view_draw" />
+
 </navigation>

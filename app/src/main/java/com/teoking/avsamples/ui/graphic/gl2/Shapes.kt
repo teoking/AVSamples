@@ -14,7 +14,7 @@ var triangleCoords = floatArrayOf(     // in counterclockwise order:
     0.5f, -0.311004243f, 0.0f      // bottom right
 )
 
-fun loadShader(type: Int, shaderCode: String): Int {
+private fun loadShader(type: Int, shaderCode: String): Int {
 
     // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
     // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
