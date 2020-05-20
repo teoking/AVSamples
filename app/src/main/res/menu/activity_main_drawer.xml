@@ -46,5 +46,10 @@
             android:id="@+id/nav_image_glsurface_view"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_image_glsurface_view" />
+
+        <item
+            android:id="@+id/nav_image_sprite2d"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/menu_image_sprite2d" />
     </group>
 </menu>

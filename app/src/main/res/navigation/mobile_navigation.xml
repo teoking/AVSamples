@@ -67,7 +67,7 @@
 
     <fragment
         android:id="@+id/nav_graphic_gles2_shape"
-        android:name="com.teoking.avsamples.ui.graphic.gl2.Gles2ShapesFragment"
+        android:name="com.teoking.avsamples.ui.graphic.ogles2.Gles2ShapesFragment"
         android:label="@string/menu_graphic_gles2_shape"
         tools:layout="@layout/fragment_gles2_shapes" />
 
@@ -94,5 +94,11 @@
         android:name="com.teoking.avsamples.ui.image.glsurfaceview.GLSurfaceViewDrawFragment"
         android:label="@string/menu_image_glsurface_view"
         tools:layout="@layout/fragment_gl_surface_view_draw" />
+
+    <fragment
+        android:id="@+id/nav_image_sprite2d"
+        android:name="com.teoking.avsamples.ui.image.image2texture.DrawImageSprite2dFragment"
+        android:label="@string/menu_image_sprite2d"
+        tools:layout="@layout/fragment_image_sprite2d" />
 
 </navigation>

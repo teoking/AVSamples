@@ -20,6 +20,7 @@
     <string name="menu_image_surface_view">Image: SurfaceView</string>
     <string name="menu_image_custom_view">Image: CustomView</string>
     <string name="menu_image_glsurface_view">Image: GLSurfaceView</string>
+    <string name="menu_image_sprite2d">Image: Sprite2d</string>
 
     <string name="home_second">Home Second</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.teoking.avsamples.ui.graphic.gl2
+package com.teoking.avsamples.ui.graphic.ogles2
 
 import android.content.Context
 import android.opengl.GLSurfaceView

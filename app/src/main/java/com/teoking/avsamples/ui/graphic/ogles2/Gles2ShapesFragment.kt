@@ -1,6 +1,5 @@
-package com.teoking.avsamples.ui.graphic.gl2
+package com.teoking.avsamples.ui.graphic.ogles2
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
