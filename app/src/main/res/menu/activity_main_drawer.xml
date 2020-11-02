@@ -51,5 +51,10 @@
             android:id="@+id/nav_image_sprite2d"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_image_sprite2d" />
+
+        <item
+            android:id="@+id/nav_webrtc_local_view"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_webrtc_local_view" />
     </group>
 </menu>
