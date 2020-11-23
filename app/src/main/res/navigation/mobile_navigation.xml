@@ -102,6 +102,12 @@
         tools:layout="@layout/fragment_image_sprite2d" />
 
     <fragment
+        android:id="@+id/nav_image_gl30tex2d"
+        android:name="com.teoking.avsamples.ui.image.gl30surfaceview.GL30Tex2DFragment"
+        android:label="@string/menu_image_gl30tex2d"
+        tools:layout="@layout/fragment_image_sprite2d" />
+
+    <fragment
         android:id="@+id/nav_webrtc_local_view"
         android:name="com.teoking.avsamples.ui.webrtc.WebRtcIntroFragment"
         android:label="@string/menu_webrtc_local_view"
