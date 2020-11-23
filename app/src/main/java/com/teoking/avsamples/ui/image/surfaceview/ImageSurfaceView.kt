@@ -27,7 +27,6 @@ class ImageSurfaceView(context: Context, attrs: AttributeSet) : SurfaceView(cont
     private var currentAngle = 0f
 
     init {
-        holder.addCallback(this)
         mRenderThread = RenderThread(this)
     }
 
@@ -75,5 +74,15 @@ class ImageSurfaceView(context: Context, attrs: AttributeSet) : SurfaceView(cont
 
         mRenderThread.setRunning(true)
         mRenderThread.start()
+    }
+
+    fun resume() {
+        holder.addCallback(this)
+        mRenderThread.setRunning(true)
+    }
+
+    fun pause() {
+        holder.removeCallback(this)
+        mRenderThread.setRunning(false)
     }
 }
