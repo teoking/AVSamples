@@ -1,4 +1,4 @@
-package com.teoking.avsamples.ui.camera.preivew
+package com.teoking.avsamples.ui.camerax.preivew
 
 import android.Manifest
 import android.content.res.Configuration
@@ -24,6 +24,7 @@ class CameraXPreviewFragment : PermissionFragment(
     }
 
     private lateinit var viewModel: CameraXPreviewViewModel
+    private var isFrontLensSelected = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,16 +48,26 @@ class CameraXPreviewFragment : PermissionFragment(
         previewSelectGroup.setOnCheckedChangeListener { _, checkedId ->
             when(checkedId) {
                 R.id.surfaceViewButton -> {
-                    viewModel.requestWithSurfaceView(this, preview_view)
+                    viewModel.requestWithSurfaceView(this, preview_view, isFrontLensSelected)
                 }
                 R.id.textureViewButton -> {
-                    viewModel.requestWithTextureView(this, preview_view)
+                    viewModel.requestWithTextureView(this, preview_view, isFrontLensSelected)
                 }
                 else -> {
                     Toast.makeText(context, "Not implemented!", Toast.LENGTH_SHORT).show()
                 }
             }
         }
-    }
 
+        cameraSelectGroup.setOnCheckedChangeListener { _, checkedId ->
+            isFrontLensSelected = when(checkedId) {
+                R.id.frontCameraButton -> {
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
+    }
 }

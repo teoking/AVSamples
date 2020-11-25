@@ -1,4 +1,4 @@
-package com.teoking.avsamples.ui.camera.preivew
+package com.teoking.avsamples.ui.camerax.preivew
 
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy

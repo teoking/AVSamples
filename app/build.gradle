@@ -58,6 +58,7 @@ dependencies {
     implementation 'com.squareup.okio:okio:2.6.0'
 
     implementation project(':common')
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
 
     // CameraX core library using the camera2 implementation
     def camerax_version = "1.0.0-beta03"

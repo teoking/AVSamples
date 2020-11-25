@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.camera.preivew.CameraXPreviewFragment">
+    tools:context=".ui.camerax.preivew.CameraXPreviewFragment">
 
     <TextView
         android:id="@+id/descTextView"
@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/preview_view" />
 
     <RadioGroup
-        android:id="@+id/previewSelectGroup"
+        android:id="@+id/cameraSelectGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -53,6 +53,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+        <RadioButton
+            android:id="@+id/backCameraButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="Back Camera" />
+
+        <RadioButton
+            android:id="@+id/frontCameraButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="false"
+            android:text="Front Camera" />
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/previewSelectGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cameraSelectGroup">
 
         <RadioButton
             android:id="@+id/surfaceViewButton"

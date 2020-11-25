@@ -56,12 +56,12 @@
     <fragment
         android:id="@+id/nav_media_codec"
         android:name="com.teoking.avsamples.ui.codec.AudioCodecFragment"
-        android:label="@string/menu_media_codec"
+        android:label="@string/menu_audio_record_aac"
         tools:layout="@layout/fragment_media_code_sample" />
 
     <fragment
         android:id="@+id/nav_camera_preview"
-        android:name="com.teoking.avsamples.ui.camera.preivew.CameraXPreviewFragment"
+        android:name="com.teoking.avsamples.ui.camerax.preivew.CameraXPreviewFragment"
         android:label="@string/menu_camera_preview"
         tools:layout="@layout/fragment_camera_x_preview" />
 

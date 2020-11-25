@@ -1,4 +1,4 @@
-package com.teoking.avsamples.ui.camera.preivew
+package com.teoking.avsamples.ui.camerax.preivew
 
 import android.app.Application
 import android.util.Log
@@ -31,11 +31,21 @@ class CameraXPreviewViewModel(application: Application) : AndroidViewModel(appli
     private var cameraExecutor: ExecutorService = Executors.newSingleThreadExecutor()
 
     /** Request previewing with a SurfaceView */
-    fun requestWithSurfaceView(lifecycleOwner: LifecycleOwner, previewView: PreviewView) {
+    fun requestWithSurfaceView(
+        lifecycleOwner: LifecycleOwner,
+        previewView: PreviewView,
+        isFrontLens: Boolean
+    ) {
         viewModelScope.launch(Dispatchers.Main) {
             val cameraProvider = fetchCameraProvider()
             unbindUseCase(cameraProvider)
-            bindCameraUseCases(lifecycleOwner, previewView, PreviewView.ImplementationMode.SURFACE_VIEW, cameraProvider)
+            bindCameraUseCases(
+                lifecycleOwner,
+                previewView,
+                PreviewView.ImplementationMode.SURFACE_VIEW,
+                cameraProvider,
+                isFrontLens
+            )
         }
     }
 
@@ -43,11 +53,12 @@ class CameraXPreviewViewModel(application: Application) : AndroidViewModel(appli
         lifecycleOwner: LifecycleOwner,
         previewView: PreviewView,
         implementationMode: PreviewView.ImplementationMode,
-        cameraProvider: ProcessCameraProvider
+        cameraProvider: ProcessCameraProvider,
+        isFrontLens: Boolean
     ) {
         previewView.preferredImplementationMode = implementationMode
 
-        val preview : Preview = Preview.Builder()
+        val preview: Preview = Preview.Builder()
             .setTargetResolution(RESOLUTION_SIZE)
             .build()
 
@@ -64,11 +75,12 @@ class CameraXPreviewViewModel(application: Application) : AndroidViewModel(appli
                 })
             }
 
-        val cameraSelector : CameraSelector = CameraSelector.Builder()
-            .requireLensFacing(CameraSelector.LENS_FACING_BACK)
+        val cameraSelector: CameraSelector = CameraSelector.Builder()
+            .requireLensFacing(if (isFrontLens) CameraSelector.LENS_FACING_FRONT else CameraSelector.LENS_FACING_BACK)
             .build()
 
-        val camera = cameraProvider.bindToLifecycle(lifecycleOwner, cameraSelector, preview, imageAnalysis)
+        val camera =
+            cameraProvider.bindToLifecycle(lifecycleOwner, cameraSelector, preview, imageAnalysis)
 
         preview.setSurfaceProvider(previewView.createSurfaceProvider(camera.cameraInfo))
     }
@@ -90,12 +102,19 @@ class CameraXPreviewViewModel(application: Application) : AndroidViewModel(appli
     /** Request previewing with a TextureView */
     fun requestWithTextureView(
         lifecycleOwner: LifecycleOwner,
-        previewView: PreviewView
+        previewView: PreviewView,
+        isFrontLens: Boolean
     ) {
         viewModelScope.launch(Dispatchers.Main) {
             val cameraProvider = fetchCameraProvider()
             unbindUseCase(cameraProvider)
-            bindCameraUseCases(lifecycleOwner, previewView, PreviewView.ImplementationMode.TEXTURE_VIEW, cameraProvider)
+            bindCameraUseCases(
+                lifecycleOwner,
+                previewView,
+                PreviewView.ImplementationMode.TEXTURE_VIEW,
+                cameraProvider,
+                isFrontLens
+            )
         }
     }
 

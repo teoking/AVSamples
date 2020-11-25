@@ -17,7 +17,7 @@
         <item
             android:id="@+id/nav_media_codec"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_media_codec" />
+            android:title="@string/menu_audio_record_aac" />
 
         <item
             android:id="@+id/nav_camera_preview"

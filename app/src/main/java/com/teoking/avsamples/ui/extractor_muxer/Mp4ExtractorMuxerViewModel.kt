@@ -91,6 +91,7 @@ class Mp4ExtractorMuxerViewModel(application: Application) : AndroidViewModel(ap
                     if (!finished) {
                         val currentTrackIndex = if (result.second) audioTrackIndex else videoTrackIndex
                         muxer.writeSampleData(currentTrackIndex, byteBuffer, bufferInfo)
+                        byteBuffer.rewind()
                     }
                 }
             }
