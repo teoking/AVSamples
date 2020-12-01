@@ -23,6 +23,8 @@
     <string name="menu_image_sprite2d">Image: Sprite2d</string>
     <string name="menu_image_gl30tex2d">Image: Draw Texture</string>
 
+    <string name="menu_video_texture_renderer">Video: Texture Renderer</string>
+
     <string name="menu_webrtc_local_view">WebRTC: LocalView</string>
 
     <string name="home_second">Home Second</string>

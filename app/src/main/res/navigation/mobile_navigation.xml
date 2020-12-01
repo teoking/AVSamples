@@ -113,4 +113,10 @@
         android:label="@string/menu_webrtc_local_view"
         tools:layout="@layout/fragment_web_rtc_intro" />
 
+    <fragment
+        android:id="@+id/nav_video_texture_renderer"
+        android:name="com.teoking.avsamples.ui.video.texturerendering.VideoTextureRenderFragment"
+        android:label="@string/menu_video_texture_renderer"
+        tools:layout="@layout/video_texture_renderer_fragment" />
+
 </navigation>
