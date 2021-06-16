@@ -40,6 +40,11 @@
             android:title="@string/menu_video_texture_renderer" />
 
         <item
+            android:id="@+id/nav_video_hw_decoder"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_video_hw_decoder" />
+
+        <item
             android:id="@+id/nav_image_image_view"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_image_image_view" />

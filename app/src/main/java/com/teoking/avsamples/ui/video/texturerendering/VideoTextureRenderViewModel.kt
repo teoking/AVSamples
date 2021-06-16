@@ -3,7 +3,6 @@ package com.teoking.avsamples.ui.video.texturerendering
 import android.app.Application
 import android.content.res.AssetFileDescriptor
 import android.media.MediaPlayer
-import android.net.Uri
 import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
@@ -23,7 +22,7 @@ class VideoTextureRenderViewModel(private val appContext: Application) :
     val text: LiveData<String> = _text
 
     private val mediaPlayer: MediaPlayer = MediaPlayer()
-    private lateinit var videoSurfaceView: VideoSurfaceView
+    private lateinit var videoSurfaceView: MediaPlayerSurfaceView
 
     fun initVideoView(container: ViewGroup) {
         var afd: AssetFileDescriptor? = null
@@ -74,7 +73,11 @@ class VideoTextureRenderViewModel(private val appContext: Application) :
 
     private fun addVideoSurfaceViewTo(container: ViewGroup) {
         // Add VideoSurfaceView
-        videoSurfaceView = VideoSurfaceView(appContext, mediaPlayer)
+        videoSurfaceView =
+            MediaPlayerSurfaceView(
+                appContext,
+                mediaPlayer
+            )
         val frame = container as FrameLayout
         val params = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
@@ -85,7 +88,7 @@ class VideoTextureRenderViewModel(private val appContext: Application) :
     }
 
     companion object {
-        const val TAG = "VTRenderVM"
-        const val MP4_FILENAME = "SampleVideo_720x480_1mb.mp4"
+        private const val TAG = "VTRenderVM"
+        private const val MP4_FILENAME = "SampleVideo_720x480_1mb.mp4"
     }
 }

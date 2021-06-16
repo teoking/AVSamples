@@ -1,4 +1,4 @@
-package com.teoking.avsamples.ui.video.texturerendering;
+package com.teoking.avsamples.ui.video.hwdecode;
 
 import android.content.Context;
 import android.graphics.SurfaceTexture;
@@ -14,30 +14,22 @@ import java.io.IOException;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-public class VideoSurfaceView extends GLSurfaceView {
+public class HwDecoderSurfaceView extends GLSurfaceView {
     private static final String TAG = "VideoSurfaceView";
     private static final int SLEEP_TIME_MS = 1000;
 
-    VideoRender mRenderer;
-    private MediaPlayer mMediaPlayer = null;
+    private VideoRender mRenderer;
 
-    public VideoSurfaceView(Context context, MediaPlayer mp) {
+    public HwDecoderSurfaceView(Context context, HwDecoderSurfaceViewCallback callback) {
         super(context);
 
         setEGLContextClientVersion(2);
-        mMediaPlayer = mp;
-        mRenderer = new VideoRender(context);
+        mRenderer = new VideoRender(context, callback);
         setRenderer(mRenderer);
     }
 
     @Override
     public void onResume() {
-        queueEvent(new Runnable() {
-            public void run() {
-                mRenderer.setMediaPlayer(mMediaPlayer);
-            }
-        });
-
         super.onResume();
     }
 
@@ -46,21 +38,17 @@ public class VideoSurfaceView extends GLSurfaceView {
      * video decoder to a View.
      */
     private static class VideoRender
-            implements GLSurfaceView.Renderer, SurfaceTexture.OnFrameAvailableListener {
+            implements Renderer, SurfaceTexture.OnFrameAvailableListener {
         private static String TAG = "VideoRender";
 
         private TextureRender mTextureRender;
         private SurfaceTexture mSurfaceTexture;
+        private HwDecoderSurfaceViewCallback mCallback;
         private boolean updateSurface = false;
 
-        private MediaPlayer mMediaPlayer;
-
-        public VideoRender(Context context) {
+        public VideoRender(Context context, HwDecoderSurfaceViewCallback callback) {
             mTextureRender = new TextureRender();
-        }
-
-        public void setMediaPlayer(MediaPlayer player) {
-            mMediaPlayer = player;
+            mCallback = callback;
         }
 
         public void onDrawFrame(GL10 glUnused) {
@@ -82,20 +70,14 @@ public class VideoSurfaceView extends GLSurfaceView {
 
             /*
              * Create the SurfaceTexture that will feed this textureID,
-             * and pass it to the MediaPlayer
+             * and pass it to the callback
              */
             mSurfaceTexture = new SurfaceTexture(mTextureRender.getTextureId());
             mSurfaceTexture.setOnFrameAvailableListener(this);
 
             Surface surface = new Surface(mSurfaceTexture);
-            mMediaPlayer.setSurface(surface);
+            mCallback.onSurfaceCreated(surface);
             surface.release();
-
-            try {
-                mMediaPlayer.prepare();
-            } catch (IOException t) {
-                Log.e(TAG, "media player prepare failed");
-            }
 
             synchronized (this) {
                 updateSurface = false;

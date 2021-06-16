@@ -25,6 +25,7 @@
     <string name="menu_image_gl30tex2d">Image: DrawTex(GLES 3.0)</string>
 
     <string name="menu_video_texture_renderer">Video: Texture Renderer</string>
+    <string name="menu_video_hw_decoder">Video: Hardware Decoder</string>
 
     <string name="menu_webrtc_local_view">WebRTC: LocalView</string>
 
