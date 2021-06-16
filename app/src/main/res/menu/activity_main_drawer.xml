@@ -20,9 +20,14 @@
             android:title="@string/menu_audio_record_aac" />
 
         <item
-            android:id="@+id/nav_camera_preview"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_camera_preview" />
+            android:id="@+id/nav_camerax_preview"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_camerax_preview" />
+
+        <item
+            android:id="@+id/nav_camera2_preview_record"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_camera2_preview_record" />
 
         <item
             android:id="@+id/nav_graphic_gles2_shape"

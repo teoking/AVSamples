@@ -49,6 +49,10 @@ class MyGLRenderer : GLSurfaceView.Renderer {
 //        val time = SystemClock.uptimeMillis() % 4000L
 //        val angle = 0.090f * time.toInt()
         Matrix.setRotateM(rotationMatrix, 0, angle, 0f, 0f, -1.0f)
+        angle++
+        if (angle.compareTo(360.0f) == 0) {
+            angle = 0f
+        }
 
         // Combine the rotation matrix with the projection and camera view
         // Note that the vPMatrix factor *must be first* in order

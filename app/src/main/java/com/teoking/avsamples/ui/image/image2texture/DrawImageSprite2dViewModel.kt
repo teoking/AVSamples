@@ -51,7 +51,7 @@ class DrawImageSprite2dViewModel(application: Application) : AndroidViewModel(ap
             "tiny", "small", "medium", "full"
         )
 
-        private val SAMPLE_IMAGE = R.drawable.james
+        private const val SAMPLE_IMAGE = R.drawable.james
     }
 
     private var mSelectedSize = 0

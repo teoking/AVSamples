@@ -7,6 +7,8 @@ import android.opengl.GLSurfaceView;
 import android.util.Log;
 import android.view.Surface;
 
+import com.teoking.common.TextureRender;
+
 import java.io.IOException;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -37,18 +39,6 @@ public class VideoSurfaceView extends GLSurfaceView {
         });
 
         super.onResume();
-    }
-
-    public void startTest() throws Exception {
-        Thread.sleep(SLEEP_TIME_MS);
-        mMediaPlayer.start();
-
-        Thread.sleep(SLEEP_TIME_MS * 5);
-        mMediaPlayer.setSurface(null);
-
-        while (mMediaPlayer.isPlaying()) {
-            Thread.sleep(SLEEP_TIME_MS);
-        }
     }
 
     /**

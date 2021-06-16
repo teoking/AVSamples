@@ -60,10 +60,16 @@
         tools:layout="@layout/fragment_media_code_sample" />
 
     <fragment
-        android:id="@+id/nav_camera_preview"
+        android:id="@+id/nav_camerax_preview"
         android:name="com.teoking.avsamples.ui.camerax.preivew.CameraXPreviewFragment"
-        android:label="@string/menu_camera_preview"
+        android:label="@string/menu_camerax_preview"
         tools:layout="@layout/fragment_camera_x_preview" />
+
+    <fragment
+        android:id="@+id/nav_camera2_preview_record"
+        android:name="com.teoking.avsamples.ui.camera2.record.Camera2PreviewRecordFragment"
+        android:label="@string/menu_camera2_preview_record"
+        tools:layout="@layout/fragment_camera2_preview_record" />
 
     <fragment
         android:id="@+id/nav_graphic_gles2_shape"

@@ -4,5 +4,5 @@ import androidx.lifecycle.ViewModel
 
 class GLSurfaceViewDrawViewModel : ViewModel() {
 
-    val descText = "This sample shows how to draw an image on GLSurfaceView."
+    val descText = "This sample shows how to draw an image on GLSurfaceView with GLES 2.0."
 }

@@ -13,7 +13,8 @@
     <string name="menu_audio_record_play">Audio: Record &amp; Play</string>
     <string name="menu_extractor_muxer">Media Extractor &amp; Muxer</string>
     <string name="menu_audio_record_aac">Audio: Record AAC</string>
-    <string name="menu_camera_preview">CameraX Preview</string>
+    <string name="menu_camerax_preview">CameraX Preview</string>
+    <string name="menu_camera2_preview_record">Camera2 Preview &amp; Record</string>
     <string name="menu_graphic_gles2_shape">Graphic: GLES2 Shape</string>
 
     <string name="menu_image_image_view">Image: ImageView</string>
@@ -21,11 +22,13 @@
     <string name="menu_image_custom_view">Image: CustomView</string>
     <string name="menu_image_glsurface_view">Image: GLSurfaceView</string>
     <string name="menu_image_sprite2d">Image: Sprite2d</string>
-    <string name="menu_image_gl30tex2d">Image: Draw Texture</string>
+    <string name="menu_image_gl30tex2d">Image: DrawTex(GLES 3.0)</string>
 
     <string name="menu_video_texture_renderer">Video: Texture Renderer</string>
 
     <string name="menu_webrtc_local_view">WebRTC: LocalView</string>
 
     <string name="home_second">Home Second</string>
+
+    <string name="capture">Capture</string>
 </resources>

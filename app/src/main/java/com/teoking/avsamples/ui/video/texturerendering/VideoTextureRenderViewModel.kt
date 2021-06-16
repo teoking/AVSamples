@@ -17,7 +17,7 @@ class VideoTextureRenderViewModel(private val appContext: Application) :
     AndroidViewModel(appContext), LifecycleObserver {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This demo shows play a mp4 with MediaPlayer and render pictures as textures to " +
+        value = "[VideoTextureRender] shows play a mp4 with MediaPlayer and render pictures as textures to " +
                 "the GLSurfaceView through a custom renderer."
     }
     val text: LiveData<String> = _text
@@ -56,6 +56,14 @@ class VideoTextureRenderViewModel(private val appContext: Application) :
         videoSurfaceView.onPause()
     }
 
+    override fun onCleared() {
+        if (!mediaPlayer.isPlaying) {
+            mediaPlayer.stop()
+        }
+        mediaPlayer.release()
+        super.onCleared()
+    }
+
     fun delayedPlay() {
         viewModelScope.launch(Dispatchers.IO, CoroutineStart.DEFAULT) {
             if (!mediaPlayer.isPlaying) {
@@ -77,7 +85,7 @@ class VideoTextureRenderViewModel(private val appContext: Application) :
     }
 
     companion object {
-        const val TAG = "VideoTextureRenderViewModel"
+        const val TAG = "VTRenderVM"
         const val MP4_FILENAME = "SampleVideo_720x480_1mb.mp4"
     }
 }

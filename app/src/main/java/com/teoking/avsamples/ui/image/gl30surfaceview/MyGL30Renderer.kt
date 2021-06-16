@@ -56,64 +56,12 @@ class MyGL30Renderer(private val context: Context) : GLSurfaceView.Renderer {
         mIndices.put(mIndicesData).position(0)
     }
 
-    //
-    // Create a simple 2x2 texture image with four different colors
-    //
-    private fun createSimpleTexture2D(): Int {
-        // Texture object handle
-        val textureId = IntArray(1)
-
-        // 2x2 Image, 3 bytes per pixel (R, G, B)
-        val pixels = byteArrayOf(
-            0xff.toByte(), 0, 0,  // Red
-            0, 0xff.toByte(), 0,  // Green
-            0, 0, 0xff.toByte(),  // Blue
-            0xff.toByte(), 0xff.toByte(), 0 // Yellow
-        )
-        val pixelBuffer = ByteBuffer.allocateDirect(4 * 3)
-        pixelBuffer.put(pixels).position(0)
-
-        // Use tightly packed data
-        GLES30.glPixelStorei(GLES30.GL_UNPACK_ALIGNMENT, 1)
-
-        //  Generate a texture object
-        GLES30.glGenTextures(1, textureId, 0)
-
-        // Bind the texture object
-        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, textureId[0])
-
-        //  Load the texture
-        GLES30.glTexImage2D(
-            GLES30.GL_TEXTURE_2D,
-            0,
-            GLES30.GL_RGB,
-            2,
-            2,
-            0,
-            GLES30.GL_RGB,
-            GLES30.GL_UNSIGNED_BYTE,
-            pixelBuffer
-        )
-
-        // Set the filtering mode
-        GLES30.glTexParameteri(
-            GLES30.GL_TEXTURE_2D,
-            GLES30.GL_TEXTURE_MIN_FILTER,
-            GLES30.GL_NEAREST
-        )
-        GLES30.glTexParameteri(
-            GLES30.GL_TEXTURE_2D,
-            GLES30.GL_TEXTURE_MAG_FILTER,
-            GLES30.GL_NEAREST
-        )
-        return textureId[0]
-    }
-
     ///
     // Initialize the shader and program object
     //
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
-        val vShaderStr = """#version 300 es              				
+        val vShaderStr = """
+#version 300 es              				
 layout(location = 0) in vec4 a_position;   
 layout(location = 1) in vec2 a_texCoord;   
 out vec2 v_texCoord;     	  				
@@ -124,7 +72,8 @@ void main()
 }                            				
 """
 
-        val fShaderStr = """#version 300 es                                     
+        val fShaderStr = """
+#version 300 es                                     
 precision mediump float;                            
 in vec2 v_texCoord;                            	 
 layout(location = 0) out vec4 outColor;             
